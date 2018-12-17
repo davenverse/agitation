@@ -1,0 +1,11 @@
+name: agitation
+baseurl: /agitation
+description: Alarms and other Control Structures for Cancellation
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.0.1-SNAPSHOT
+org: io.chrisdavenport
+markdown: kramdown
