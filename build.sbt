@@ -21,25 +21,8 @@ lazy val contributors = Seq(
 )
 
 val catsV = "1.5.0"
-val kittensV = "1.2.0"
 val catsEffectV = "1.1.0"
-val mouseV = "0.18"
-val shapelessV = "2.3.3"
-val fs2V = "1.0.2"
-val http4sV = "0.20.0-M4"
-val circeV = "0.10.1"
-val doobieV = "0.6.0"
-val pureConfigV = "0.10.0"
-val refinedV = "0.9.3"
-
-val log4catsV = "0.2.0"
-val catsParV = "0.2.0"
-val catsTimeV = "0.2.0"
-val fuuidV = "0.2.0-M3"
-val lineBackerV = "0.2.0"
-
 val specs2V = "4.3.5"
-
 val kindProjectorV = "0.9.9"
 val betterMonadicForV = "0.3.0-M4"
 
@@ -61,49 +44,7 @@ lazy val commonSettings = Seq(
   addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForV),
   libraryDependencies ++= Seq(
     "org.typelevel"               %% "cats-core"                  % catsV,
-
-    "org.typelevel"               %% "kittens"                    % kittensV,
-    "org.typelevel"               %% "alleycats-core"             % catsV,
-    "org.typelevel"               %% "mouse"                      % mouseV,
-
     "org.typelevel"               %% "cats-effect"                % catsEffectV,
-
-    "com.chuusai"                 %% "shapeless"                  % shapelessV,
-
-    "co.fs2"                      %% "fs2-core"                   % fs2V,
-    "co.fs2"                      %% "fs2-io"                     % fs2V,
-
-    "org.http4s"                  %% "http4s-dsl"                 % http4sV,
-    "org.http4s"                  %% "http4s-blaze-server"        % http4sV,
-    "org.http4s"                  %% "http4s-blaze-client"        % http4sV,
-    "org.http4s"                  %% "http4s-circe"               % http4sV,
-
-    "io.circe"                    %% "circe-core"                 % circeV,
-    "io.circe"                    %% "circe-generic"              % circeV,
-    "io.circe"                    %% "circe-parser"               % circeV,
-
-    "org.tpolecat"                %% "doobie-core"                % doobieV,
-    "org.tpolecat"                %% "doobie-h2"                  % doobieV,
-    "org.tpolecat"                %% "doobie-hikari"              % doobieV,
-    "org.tpolecat"                %% "doobie-postgres"            % doobieV,
-    "org.tpolecat"                %% "doobie-specs2"              % doobieV       % Test,
-
-    "io.chrisdavenport"           %% "log4cats-core"              % log4catsV,
-    "io.chrisdavenport"           %% "log4cats-slf4j"             % log4catsV,
-    "io.chrisdavenport"           %% "log4cats-extras"            % log4catsV,
-    "io.chrisdavenport"           %% "log4cats-testing"           % log4catsV     % Test,
-
-    "io.chrisdavenport"           %% "cats-par"                   % catsParV,
-    "io.chrisdavenport"           %% "cats-time"                  % catsTimeV,
-
-    "io.chrisdavenport"           %% "linebacker"                 % lineBackerV,
-
-    "io.chrisdavenport"           %% "fuuid"                      % fuuidV,
-
-    "com.github.pureconfig"       %% "pureconfig"                 % pureConfigV,
-
-    "eu.timepit"                  %% "refined"                    % refinedV,
-    "eu.timepit"                  %% "refined-scalacheck"         % refinedV      % Test,
     "org.typelevel"               %% "cats-effect-laws"           % catsEffectV   % Test,
     "org.specs2"                  %% "specs2-core"                % specs2V       % Test,
     "org.specs2"                  %% "specs2-scalacheck"          % specs2V       % Test

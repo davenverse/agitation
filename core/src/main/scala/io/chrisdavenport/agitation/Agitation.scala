@@ -1,7 +1,6 @@
 package io.chrisdavenport.agitation
 
 import scala.concurrent.duration._
-import fs2._
 import cats.implicits._
 import cats.effect._
 import cats.effect.concurrent._
