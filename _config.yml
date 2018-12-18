@@ -1,6 +1,6 @@
 name: agitation
 baseurl: /agitation
-description: Alarms and other Control Structures for Cancellation
+description: A Control Structure for Cancellation
 highlighter: rouge
 docs: true
 collections:
