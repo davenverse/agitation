@@ -175,7 +175,7 @@ lazy val micrositeSettings = {
   import microsites._
   Seq(
     micrositeName := "agitation",
-    micrositeDescription := "Alarms and other Control Structures for Cancellation",
+    micrositeDescription := "A Control Structure for Cancellation",
     micrositeAuthor := "Christopher Davenport",
     micrositeGithubOwner := "ChristopherDavenport",
     micrositeGithubRepo := "agitation",
