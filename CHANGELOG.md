@@ -5,3 +5,8 @@ This file summarizes **notable** changes for each release, but does not describe
 ----
 
 ## <a name="Unreleased"></a>Unreleased Changes
+
+## <a name="0.1.0"></a>New and Noteworthy for Version 0.1.0
+
+- Initial Encoding
+- Dependencies: cats 1.x, cats-effect 1.x
