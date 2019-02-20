@@ -2,25 +2,28 @@ sudo: false
 language: scala
 
 scala:
+  - 2.13.0-M5
   - 2.12.8
   - 2.11.12
 
 jdk:
   - openjdk11
 
+dist: xenial
+
 before_install:
   - export PATH=${PATH}:./vendor/bundle
 
 install:
-  - rvm use 2.2.8 --install --fuzzy
+  - rvm use 2.6.0 --install --fuzzy
   - gem update --system
   - gem install sass
   - gem install jekyll -v 3.2.1
 
 script:
   - sbt ++$TRAVIS_SCALA_VERSION test
-  - sbt ++$TRAVIS_SCALA_VERSION mimaReportBinaryIssues
-  - sbt ++$TRAVIS_SCALA_VERSION docs/makeMicrosite
+  - test $TRAVIS_SCALA_VERSION == "2.13.0-M5" || sbt ++$TRAVIS_SCALA_VERSION mimaReportBinaryIssues
+  - test $TRAVIS_SCALA_VERSION == "2.13.0-M5" || sbt ++$TRAVIS_SCALA_VERSION docs/makeMicrosite
 
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && test $TRAVIS_REPO_SLUG == "ChristopherDavenport/agitation" && sbt ++$TRAVIS_SCALA_VERSION publish
