@@ -6,6 +6,7 @@ import cats.implicits._
 // import cats.effect.laws.util.TestContext
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
+import scala.util.Success
 
 object AgitationSpec extends mutable.Specification {
 
@@ -26,6 +27,7 @@ object AgitationSpec extends mutable.Specification {
     }
 
     "return agitation if it settles" in {
+      implicit val ec = ExecutionContext.global
       implicit val cs = IO.contextShift(ExecutionContext.global)
       implicit val t = IO.timer(ExecutionContext.global)
 
@@ -37,7 +39,8 @@ object AgitationSpec extends mutable.Specification {
         )
       } yield out
 
-      test.unsafeRunSync must_=== Left(())
+      val testF = test.unsafeToFuture 
+      (Timer[IO].sleep(3.seconds).unsafeToFuture.flatMap(_ => testF)).value must_=== Some(Success(Either.left[Unit, Unit](())))
     }
   }
 
