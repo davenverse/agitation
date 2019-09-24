@@ -70,10 +70,16 @@ lazy val releaseSettings = {
       releaseStepCommandAndRemaining("+publishSigned"),
       setNextVersion,
       commitNextVersion,
-      releaseStepCommand("sonatypeBundleRelease"),
+      releaseStepCommand("sonatypeReleaseAll"),
       pushChanges
     ),
-    publishTo := sonatypePublishToBundle.value,
+    publishTo := {
+      val nexus = "https://oss.sonatype.org/"
+      if (isSnapshot.value)
+        Some("snapshots" at nexus + "content/repositories/snapshots")
+      else
+        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    },
     credentials ++= (
       for {
         username <- Option(System.getenv().get("SONATYPE_USERNAME"))
