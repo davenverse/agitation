@@ -49,6 +49,7 @@ lazy val site = project.in(file("site"))
         "white-color" -> "#FFFFFF"
       ),
       fork in tut := true,
+      micrositeCompilingDocsTool := WithMdoc,
       scalacOptions in Tut --= Seq(
         "-Xfatal-warnings",
         "-Ywarn-unused-import",
