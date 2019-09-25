@@ -13,6 +13,7 @@ lazy val `agitation` = project.in(file("."))
   .aggregate(core)
 
 lazy val core = project.in(file("core"))
+  .disablePlugins(MimaPlugin)
   .settings(commonSettings)
   .settings(
     name := "agitation"
