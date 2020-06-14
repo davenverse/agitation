@@ -1,8 +1,6 @@
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
-
-val catsV = "2.0.0"
-val catsEffectV = "2.0.0"
-val specs2V = "4.8.2"
+val catsV = "2.1.1"
+val catsEffectV = "2.1.3"
+val specs2V = "4.9.4"
 val kindProjectorV = "0.10.3"
 val betterMonadicForV = "0.3.1"
 
@@ -10,18 +8,27 @@ lazy val `agitation` = project.in(file("."))
   .disablePlugins(MimaPlugin)
   .enablePlugins(NoPublishPlugin)
   .settings(commonSettings)
-  .aggregate(core)
+  .aggregate(core.js, core.jvm)
 
-lazy val core = project.in(file("core"))
+lazy val core = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("core"))
   .disablePlugins(MimaPlugin)
   .settings(commonSettings)
   .settings(
-    name := "agitation"
+    name := "agitation",
+    libraryDependencies ++= Seq(
+    "org.typelevel"               %%% "cats-core"                  % catsV,
+    "org.typelevel"               %%% "cats-effect"                % catsEffectV,
+    "org.typelevel"               %%% "cats-effect-laws"           % catsEffectV   % Test,
+    "org.specs2"                  %%% "specs2-core"                % specs2V       % Test,
+    "org.specs2"                  %%% "specs2-scalacheck"          % specs2V       % Test
+  )
   )
 
 lazy val site = project.in(file("site"))
   .settings(commonSettings)
-  .dependsOn(core)
+  .dependsOn(core.jvm)
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(MdocPlugin)
@@ -74,14 +81,7 @@ lazy val commonSettings = Seq(
   crossScalaVersions := Seq(scalaVersion.value, "2.12.10", "2.11.12"),
   
   addCompilerPlugin("org.typelevel" % "kind-projector" % kindProjectorV cross CrossVersion.binary),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForV),
-  libraryDependencies ++= Seq(
-    "org.typelevel"               %% "cats-core"                  % catsV,
-    "org.typelevel"               %% "cats-effect"                % catsEffectV,
-    "org.typelevel"               %% "cats-effect-laws"           % catsEffectV   % Test,
-    "org.specs2"                  %% "specs2-core"                % specs2V       % Test,
-    "org.specs2"                  %% "specs2-scalacheck"          % specs2V       % Test
-  )
+  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForV)
 )
 
 // Global Settings
