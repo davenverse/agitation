@@ -7,5 +7,5 @@ addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.0")
 
 addSbtPlugin("io.chrisdavenport" % "sbt-no-publish" % "0.1.0")
-addSbtPlugin("com.geirsson" % "sbt-ci-release" % "1.4.31")
+addSbtPlugin("com.geirsson" % "sbt-ci-release" % "1.5.3")
 addSbtPlugin("io.chrisdavenport" % "sbt-mima-version-check" % "0.1.2")
