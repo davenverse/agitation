@@ -3,7 +3,6 @@ package io.chrisdavenport.agitation
 import org.specs2._
 import cats.effect._
 import cats.implicits._
-// import cats.effect.laws.util.TestContext
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
@@ -20,9 +19,9 @@ object AgitationSpec extends mutable.Specification {
           ag.settled,
           Timer[IO].sleep(1.second)
         )
-      } yield out
+      } yield out must_=== Right(())
 
-      test.unsafeRunSync must_=== Right(())
+      test.unsafeToFuture
     }
 
     "return agitation if it settles" in {
@@ -35,9 +34,9 @@ object AgitationSpec extends mutable.Specification {
           ag.settled,
           ag.agitate(2.seconds) >> Timer[IO].sleep(3.seconds)
         )
-      } yield out
+      } yield out must_=== Left(())
 
-      test.unsafeRunSync must_=== Left(())
+      test.unsafeToFuture
     }
   }
 
