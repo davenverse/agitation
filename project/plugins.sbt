@@ -1,7 +1,7 @@
 addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.12")
 
 addSbtPlugin("com.47deg" % "sbt-microsites" % "0.9.7")
-addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.2.2")
+addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.2.3")
 
 addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.0.0")
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.1.0")
