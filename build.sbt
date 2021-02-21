@@ -4,7 +4,8 @@ val specs2V = "4.10.6"
 val kindProjectorV = "0.10.3"
 val betterMonadicForV = "0.3.1"
 
-lazy val `agitation` = project.in(file("."))
+lazy val `agitation` = project
+  .in(file("."))
   .disablePlugins(MimaPlugin)
   .enablePlugins(NoPublishPlugin)
   .settings(commonSettings)
@@ -18,22 +19,23 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "agitation",
     libraryDependencies ++= Seq(
-    "org.typelevel"               %%% "cats-core"                  % catsV,
-    "org.typelevel"               %%% "cats-effect"                % catsEffectV,
-    "org.typelevel"               %%% "cats-effect-laws"           % catsEffectV   % Test,
-    "org.specs2"                  %%% "specs2-core"                % specs2V       % Test,
-    "org.specs2"                  %%% "specs2-scalacheck"          % specs2V       % Test
-  )
+      "org.typelevel" %%% "cats-core"        % catsV,
+      "org.typelevel" %%% "cats-effect"      % catsEffectV,
+      "org.typelevel" %%% "cats-effect-laws" % catsEffectV % Test,
+      "org.specs2" %%% "specs2-core"         % specs2V     % Test,
+      "org.specs2" %%% "specs2-scalacheck"   % specs2V     % Test
+    )
   )
 
-lazy val site = project.in(file("site"))
+lazy val site = project
+  .in(file("site"))
   .settings(commonSettings)
   .dependsOn(core.jvm)
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(MdocPlugin)
   .enablePlugins(NoPublishPlugin)
-  .settings{
+  .settings {
     import microsites._
     Seq(
       micrositeName := "agitation",
@@ -69,36 +71,49 @@ lazy val site = project.in(file("site"))
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
       micrositeExtraMdFiles := Map(
-          file("CODE_OF_CONDUCT.md")  -> ExtraMdFileConfig("code-of-conduct.md",   "page", Map("title" -> "code of conduct",   "section" -> "code of conduct",   "position" -> "100")),
-          file("LICENSE")             -> ExtraMdFileConfig("license.md",   "page", Map("title" -> "license",   "section" -> "license",   "position" -> "101"))
+        file("CODE_OF_CONDUCT.md") -> ExtraMdFileConfig(
+          "code-of-conduct.md",
+          "page",
+          Map("title" -> "code of conduct", "section" -> "code of conduct", "position" -> "100")
+        ),
+        file("LICENSE") -> ExtraMdFileConfig(
+          "license.md",
+          "page",
+          Map("title" -> "license", "section" -> "license", "position" -> "101")
+        )
       )
     )
   }
 
 // General Settings
 lazy val commonSettings = Seq(
-  scalaVersion := "2.13.2",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.11"),
-  
-  addCompilerPlugin("org.typelevel" % "kind-projector" % kindProjectorV cross CrossVersion.binary),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForV)
+  scalaVersion := "2.13.4",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.13"),
+  addCompilerPlugin("org.typelevel" % "kind-projector"     % kindProjectorV cross CrossVersion.binary),
+  addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % betterMonadicForV)
 )
 
 // Global Settings
-inThisBuild(List(
-  organization := "io.chrisdavenport",
-  
-  developers := List(
-    Developer("ChristopherDavenport", "Christopher Davenport", "chris@christopherdavenport.tech", url("https://github.com/ChristopherDavenport"))
-  ),
-
-  homepage := Some(url("https://github.com/ChristopherDavenport/agitation")),
-  licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
-
-  pomIncludeRepository := { _ => false },
-  scalacOptions in (Compile, doc) ++= Seq(
+inThisBuild(
+  List(
+    organization := "io.chrisdavenport",
+    developers := List(
+      Developer(
+        "ChristopherDavenport",
+        "Christopher Davenport",
+        "chris@christopherdavenport.tech",
+        url("https://github.com/ChristopherDavenport")
+      )
+    ),
+    homepage := Some(url("https://github.com/ChristopherDavenport/agitation")),
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
+    pomIncludeRepository := { _ => false },
+    scalacOptions in (Compile, doc) ++= Seq(
       "-groups",
-      "-sourcepath", (baseDirectory in LocalRootProject).value.getAbsolutePath,
-      "-doc-source-url", "https://github.com/ChristopherDavenport/agitation/blob/v" + version.value + "€{FILE_PATH}.scala"
+      "-sourcepath",
+      (baseDirectory in LocalRootProject).value.getAbsolutePath,
+      "-doc-source-url",
+      "https://github.com/ChristopherDavenport/agitation/blob/v" + version.value + "€{FILE_PATH}.scala"
+    )
   )
-))
+)
