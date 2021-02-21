@@ -57,19 +57,12 @@ lazy val site = project
         "gray-lighter" -> "#F4F3F4",
         "white-color" -> "#FFFFFF"
       ),
-      fork in tut := true,
-      micrositeCompilingDocsTool := WithMdoc,
-      scalacOptions in Tut --= Seq(
-        "-Xfatal-warnings",
-        "-Ywarn-unused-import",
-        "-Ywarn-numeric-widen",
-        "-Ywarn-dead-code",
-        "-Ywarn-unused:imports",
-        "-Xlint:-missing-interpolator,_"
-      ),
-      libraryDependencies += "com.47deg" %% "github4s" % "0.20.1",
+      fork in mdoc := true,
+      scalacOptions ~= filterConsoleScalacOptions,
+      libraryDependencies += "com.47deg" %% "github4s" % "0.28.2",
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
+      micrositeSearchEnabled := false,
       micrositeExtraMdFiles := Map(
         file("CODE_OF_CONDUCT.md") -> ExtraMdFileConfig(
           "code-of-conduct.md",
