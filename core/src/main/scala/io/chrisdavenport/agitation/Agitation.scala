@@ -2,8 +2,8 @@ package io.chrisdavenport.agitation
 
 import scala.concurrent.duration._
 import cats.implicits._
-import cats.effect._
-import cats.effect.implicits._
+import cats.effect.kernel._
+import cats.effect.kernel.syntax.all._
 
 /**
  * An Agitation can be seen as a disturbed pool of water.

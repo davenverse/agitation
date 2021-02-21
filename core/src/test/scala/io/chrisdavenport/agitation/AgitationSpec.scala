@@ -2,9 +2,10 @@ package io.chrisdavenport.agitation
 
 import org.specs2._
 import cats.effect._
-import cats.implicits._
-import scala.concurrent.duration._
 import cats.effect.unsafe.IORuntime
+import cats.syntax.all._
+
+import scala.concurrent.duration._
 
 object AgitationSpec extends mutable.Specification {
 

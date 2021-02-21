@@ -78,11 +78,12 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "agitation",
     libraryDependencies ++= Seq(
-      "org.typelevel" %%% "cats-core"        % catsV,
-      "org.typelevel" %%% "cats-effect"      % catsEffectV,
-      "org.typelevel" %%% "cats-effect-laws" % catsEffectV % Test,
-      "org.specs2" %%% "specs2-core"         % specs2V     % Test,
-      "org.specs2" %%% "specs2-scalacheck"   % specs2V     % Test
+      "org.typelevel" %%% "cats-core"          % catsV,
+      "org.typelevel" %%% "cats-effect-kernel" % catsEffectV,
+      "org.typelevel" %%% "cats-effect"        % catsEffectV % Test,
+      "org.typelevel" %%% "cats-effect-laws"   % catsEffectV % Test,
+      "org.specs2" %%% "specs2-core"           % specs2V     % Test,
+      "org.specs2" %%% "specs2-scalacheck"     % specs2V     % Test
     )
   )
 
