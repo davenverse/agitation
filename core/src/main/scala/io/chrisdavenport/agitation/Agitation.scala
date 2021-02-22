@@ -31,7 +31,7 @@ object Agitation {
   /**
    * Create an empty Agitation, which is agitated forever.
    */
-  def create[F[_]: Async: Temporal]: F[Agitation[F]] = for {
+  def create[F[_]: Async]: F[Agitation[F]] = for {
     buzzer <- Deferred[F, Unit]
     firstFiber: Fiber[F, Throwable, Unit] <- Concurrent[F].never.start
     state: Ref[F, Fiber[F, Throwable, Unit]] <- Ref[F].of(firstFiber)
@@ -42,10 +42,10 @@ object Agitation {
    *
    * @param d The duration after which the agitation will settle.
    */
-  def timed[F[_]: Async: Temporal](d: FiniteDuration): F[Agitation[F]] =
+  def timed[F[_]: Async](d: FiniteDuration): F[Agitation[F]] =
     create.flatTap(_.agitate(d))
 
-  private class BaseAgitation[F[_]: Async: Temporal](
+  private class BaseAgitation[F[_]: Async](
       buzzer: Deferred[F, Unit],
       state: Ref[F, Fiber[F, Throwable, Unit]]
   ) extends Agitation[F] {
