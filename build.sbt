@@ -98,6 +98,10 @@ lazy val site = project
   .settings {
     import microsites._
     Seq(
+      libraryDependencies ++= Seq(
+        "org.typelevel" %% "cats-effect" % catsEffectV,
+        "com.47deg"     %% "github4s"    % "0.28.2"
+      ),
       micrositeName := "agitation",
       micrositeDescription := "A Control Structure for Cancellation",
       micrositeAuthor := "Christopher Davenport",
@@ -119,7 +123,6 @@ lazy val site = project
       ),
       fork in mdoc := true,
       scalacOptions ~= filterConsoleScalacOptions,
-      libraryDependencies += "com.47deg" %% "github4s" % "0.28.2",
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
       micrositeSearchEnabled := false,
