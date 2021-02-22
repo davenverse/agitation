@@ -65,15 +65,13 @@ ThisBuild / githubWorkflowPublish := Seq(
 
 lazy val `agitation` = project
   .in(file("."))
-  .disablePlugins(MimaPlugin)
-  .enablePlugins(NoPublishPlugin)
+  .enablePlugins(NoPublishPlugin, MimaPlugin)
   .settings(commonSettings)
   .aggregate(core.js, core.jvm)
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("core"))
-  .disablePlugins(MimaPlugin)
   .settings(commonSettings)
   .settings(
     name := "agitation",
