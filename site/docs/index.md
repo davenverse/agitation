@@ -7,7 +7,7 @@ layout: home
 
 ## Quick Start
 
-To use agitation in an existing SBT project with Scala 2.11 or a later version, add the following dependencies to your
+To use agitation in an existing SBT project with Scala 2.12 or a later version, add the following dependencies to your
 `build.sbt` depending on your needs:
 
 ```scala
@@ -20,20 +20,20 @@ libraryDependencies ++= Seq(
 
 First some imports and setup
 
-```tut:silent
+```scala mdoc:silent
 import cats.effect._
-import cats.implicits._
+import cats.effect.unsafe.IORuntime
+import cats.syntax.all._
 import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 import io.chrisdavenport.agitation._
-implicit val CS = IO.contextShift(ExecutionContext.global)
-implicit val T = IO.timer(ExecutionContext.global)
+
+implicit val rt = IORuntime.global
 ```
 
 Then a couple examples. Lets say we want something to race but the other action to extend that timeout
 after part of the action has completed.
 
-```tut:book
+```scala mdoc
 // Agitate set and then sleep longer than the agitation period
 // Should always return Left which is settled occuring first
 val example1 = {
@@ -41,12 +41,12 @@ val example1 = {
     ag <- Agitation.create[IO]
     out <- Concurrent[IO].race(
       ag.settled,
-      ag.agitate(2.seconds) >> Timer[IO].sleep(3.seconds)
+      ag.agitate(2.seconds) >> Temporal[IO].sleep(3.seconds)
     )
   } yield out
 }
 
-example1.unsafeRunSync
+example1.unsafeRunSync()
 
 // Agitate set and then sleep for less than the agitation period
 // Should always return Right.
@@ -55,12 +55,12 @@ val example2 = {
     ag <- Agitation.create[IO]
     out <- Concurrent[IO].race(
       ag.settled,
-      ag.agitate(4.seconds) >> Timer[IO].sleep(3.seconds)
+      ag.agitate(4.seconds) >> Temporal[IO].sleep(3.seconds)
     )
   } yield out
 }
 
-example2.unsafeRunSync
+example2.unsafeRunSync()
 
 // Agitate is never set, not very interesting but displays that
 // Agitated will not complete and the timeout will win
@@ -70,10 +70,10 @@ val example3 = {
     ag <- Agitation.create[IO]
     out <- Concurrent[IO].race(
       ag.settled,
-      Timer[IO].sleep(3.seconds)
+      Temporal[IO].sleep(3.seconds)
     )
   } yield out
 }
 
-example3.unsafeRunSync
+example3.unsafeRunSync()
 ```
