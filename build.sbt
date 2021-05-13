@@ -1,4 +1,4 @@
-val catsV = "2.4.2"
+val catsV = "2.6.1"
 val catsEffectV = "3.0.0-RC2"
 val specs2V = "4.10.6"
 val kindProjectorV = "0.10.3"
