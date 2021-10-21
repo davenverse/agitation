@@ -1,14 +1,14 @@
-val catsV = "2.4.2"
-val catsEffectV = "3.0.0-RC2"
+val catsV = "2.6.1"
+val catsEffectV = "3.0.0"
 val specs2V = "4.10.6"
-val kindProjectorV = "0.10.3"
+val kindProjectorV = "0.13.0"
 val betterMonadicForV = "0.3.1"
 
 ThisBuild / githubWorkflowArtifactUpload := false
 
-val Scala213 = "2.13.4"
+val Scala213 = "2.13.6"
 
-ThisBuild / crossScalaVersions := Seq("2.12.13", Scala213)
+ThisBuild / crossScalaVersions := Seq("2.12.14", Scala213)
 ThisBuild / scalaVersion := crossScalaVersions.value.last
 
 ThisBuild / githubWorkflowArtifactUpload := false
@@ -143,7 +143,7 @@ lazy val site = project
 
 // General Settings
 lazy val commonSettings = Seq(
-  addCompilerPlugin("org.typelevel" % "kind-projector"     % kindProjectorV cross CrossVersion.binary),
+  addCompilerPlugin("org.typelevel" % "kind-projector"     % kindProjectorV cross CrossVersion.full),
   addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % betterMonadicForV)
 )
 
