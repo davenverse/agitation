@@ -70,9 +70,8 @@ lazy val `agitation` = project
   .settings(commonSettings)
   .aggregate(core.js, core.jvm)
 
-lazy val core = crossProject(JSPlatform, JVMPlatform)
-  .crossType(CrossType.Pure)
-  .in(file("core"))
+lazy val core = (file("core") / crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure))
   .enablePlugins(MimaPlugin)
   .settings(commonSettings)
   .settings(
@@ -121,7 +120,7 @@ lazy val site = project
         "gray-lighter" -> "#F4F3F4",
         "white-color" -> "#FFFFFF"
       ),
-      fork in mdoc := true,
+      (mdoc / fork) := true,
       scalacOptions ~= filterConsoleScalacOptions,
       micrositePushSiteWith := GitHub4s,
       micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
@@ -162,10 +161,10 @@ inThisBuild(
     homepage := Some(url("https://github.com/ChristopherDavenport/agitation")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     pomIncludeRepository := { _ => false },
-    scalacOptions in (Compile, doc) ++= Seq(
+    (Compile / doc / scalacOptions) ++= Seq(
       "-groups",
       "-sourcepath",
-      (baseDirectory in LocalRootProject).value.getAbsolutePath,
+      (LocalRootProject / baseDirectory).value.getAbsolutePath,
       "-doc-source-url",
       "https://github.com/ChristopherDavenport/agitation/blob/v" + version.value + "€{FILE_PATH}.scala"
     )
