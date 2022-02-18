@@ -1,4 +1,4 @@
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.16")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.22")
 
 addSbtPlugin("com.47deg"     % "sbt-microsites" % "1.3.2")
 addSbtPlugin("org.scalameta" % "sbt-mdoc"       % "2.2.24")
